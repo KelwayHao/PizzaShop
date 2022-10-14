@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pageMenu"
+        android:enabled="true"
+        android:icon="@drawable/icon_menu"
+        android:title="@string/name_menu"/>
+    <item
+        android:id="@+id/pageProfile"
+        android:enabled="true"
+        android:icon="@drawable/icon_profile"
+        android:title="@string/name_profile"/>
+    <item
+        android:id="@+id/pageBasket"
+        android:enabled="true"
+        android:icon="@drawable/icon_basket"
+        android:title="@string/name_basket"/>
+</menu>

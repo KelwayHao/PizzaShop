@@ -6,15 +6,15 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.kelway.pizzashop.presentation.MenuFragment"
+        android:name="com.kelway.pizzashop.presentation.menu.MenuFragment"
         android:label="MenuFragment" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kelway.pizzashop.presentation.ProfileFragment"
+        android:name="com.kelway.pizzashop.presentation.profile.ProfileFragment"
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/basketFragment"
-        android:name="com.kelway.pizzashop.presentation.BasketFragment"
+        android:name="com.kelway.pizzashop.presentation.basket.BasketFragment"
         android:label="BasketFragment" />
 
 

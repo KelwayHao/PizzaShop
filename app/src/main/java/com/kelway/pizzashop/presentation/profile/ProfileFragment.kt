@@ -1,4 +1,4 @@
-package com.kelway.pizzashop.presentation
+package com.kelway.pizzashop.presentation.profile
 
 import androidx.fragment.app.Fragment
 import com.kelway.pizzashop.R

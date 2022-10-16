@@ -3,4 +3,11 @@
     <string name="name_menu">Меню</string>
     <string name="name_profile">Профиль</string>
     <string name="name_basket">Корзина</string>
+    <string name="name_menu_qr_code">Qr code scan</string>
+    <string name="message_no_access">Нет доступа</string>
+    <string name="cost_amount">от %d р</string>
+    <string name="category_pizza">Пицца</string>
+    <string name="category_combo">Комбо</string>
+    <string name="category_desserts">Десерты</string>
+    <string name="category_drinks">Напитки</string>
 </resources>

@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginVertical="16dp"
     android:layout_marginEnd="8dp"
+    android:elevation="6dp"
     app:cardCornerRadius="6dp"
-    app:cardElevation="3dp"
-    app:cardMaxElevation="4dp"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="2dp"
     app:cardPreventCornerOverlap="true">
 
-    <TextView
-        android:id="@+id/nameCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="8dp" />
+    <FrameLayout
+        android:id="@+id/frameItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/nameCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="8dp" />
+
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

@@ -6,13 +6,17 @@ import com.kelway.pizzashop.R
 import com.kelway.pizzashop.databinding.ItemCategoryBinding
 import com.kelway.pizzashop.domain.model.Category
 import com.kelway.pizzashop.domain.model.MenuItem
+import com.kelway.pizzashop.presentation.listener.SelectingCategoryClickListener
 
-class CategoryViewHolder(private val binding: ItemCategoryBinding) :
+class CategoryViewHolder(
+    private val binding: ItemCategoryBinding,
+) :
     MenuViewHolder(binding.root) {
 
     companion object {
-        const val VIEW_TYPE = 2
-        fun newInstance(parent: ViewGroup) = CategoryViewHolder(
+        fun newInstance(
+            parent: ViewGroup
+        ) = CategoryViewHolder(
             ItemCategoryBinding.bind(
                 LayoutInflater.from(parent.context)
                     .inflate(
@@ -24,9 +28,14 @@ class CategoryViewHolder(private val binding: ItemCategoryBinding) :
         )
     }
 
+    private val context = binding.root.context
+    val frameItem = binding.frameItem
+    val textView = binding.nameCategory
+
     override fun bindItem(item: MenuItem) {
+
         (item as Category).apply {
-            binding.nameCategory.text = binding.root.context.getString(nameCategory.nameItem)
+            binding.nameCategory.text = context.getString(nameCategory.nameItem)
         }
     }
 }

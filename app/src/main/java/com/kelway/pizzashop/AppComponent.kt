@@ -2,6 +2,7 @@ package com.kelway.pizzashop
 
 import android.content.Context
 import com.kelway.pizzashop.data.di.DataModule
+import com.kelway.pizzashop.data.di.RoomModule
 import com.kelway.pizzashop.domain.di.DomainModule
 import com.kelway.pizzashop.presentation.menu.MenuFragment
 import dagger.BindsInstance
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [DataModule::class, DomainModule::class]
+    modules = [DataModule::class, DomainModule::class, RoomModule::class]
 )
 
 interface AppComponent {

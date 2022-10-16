@@ -18,7 +18,6 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         return when (viewType) {
             BannerViewHolder.VIEW_TYPE -> BannerViewHolder.newInstance(parent)
-            CategoryViewHolder.VIEW_TYPE -> CategoryViewHolder.newInstance(parent)
             PizzaViewHolder.VIEW_TYPE -> PizzaViewHolder.newInstance(parent)
             else -> throw IllegalStateException("Wrong view holder type")
         }
@@ -31,7 +30,6 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is Banner -> BannerViewHolder.VIEW_TYPE
-            is Category -> CategoryViewHolder.VIEW_TYPE
             is Pizza -> PizzaViewHolder.VIEW_TYPE
             else -> throw IllegalStateException("Wrong view view type")
         }

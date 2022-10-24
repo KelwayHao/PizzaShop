@@ -16,8 +16,10 @@ import com.kelway.pizzashop.presentation.connection_network.StatusConnection
 import com.kelway.pizzashop.presentation.listener.SelectingCategoryClickListener
 import com.kelway.pizzashop.presentation.menu.adapter.CategoryAdapter
 import com.kelway.pizzashop.presentation.menu.adapter.MenuAdapter
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class MenuFragment : Fragment(R.layout.fragment_menu) {
@@ -49,21 +51,29 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         PizzaShopApplication.appComponent?.inject(this)
         super.onViewCreated(view, savedInstanceState)
-        connectivityObserver = NetworkConnectivityObserver(requireContext())
-        checkConnectionInternet(connectivityObserver as NetworkConnectivityObserver)
+        connectivityObserver = NetworkConnectivityObserver(requireContext().applicationContext)
+        checkConnectionInternet(connectivityObserver)
+        initAdapter()
     }
 
-    private fun checkConnectionInternet(connectivityObserver: NetworkConnectivityObserver) {
+    private fun checkConnectionInternet(connectivityObserver: ConnectivityObserver) {
         connectivityObserver.observe().onEach { status ->
             when (status) {
-                StatusConnection.Unavailable -> { }
+                StatusConnection.Unavailable -> {
+                    Log.e("Error", "Unavailable")
+                    menuViewModel.offlineMode()
+                }
                 StatusConnection.Losing -> {
+                    Log.e("Error", "Losing")
+                    menuViewModel.offlineMode()
                 }
                 StatusConnection.Available -> {
-                    initAdapter()
+                    Log.e("Error", "Available")
+                    menuViewModel.onlineMode()
                 }
                 StatusConnection.Lost -> {
-
+                    Log.e("Error", "Lost")
+                    menuViewModel.offlineMode()
                 }
             }
         }.launchIn(lifecycleScope)
@@ -74,6 +84,10 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         binding.bannerRecycler.adapter = bannerAdapter
         binding.itemRecycler.adapter = pizzaAdapter
 
+        initObserve()
+    }
+
+    private fun initObserve() {
         menuViewModel.banner.observe(viewLifecycleOwner) { listBanner ->
             bannerAdapter.submitList(listBanner)
         }

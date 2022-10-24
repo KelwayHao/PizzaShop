@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kelway.pizzashop.R
 import com.kelway.pizzashop.domain.interactor.banner.BannerInteractor
 import com.kelway.pizzashop.domain.interactor.category.CategoryInteractor
 import com.kelway.pizzashop.domain.interactor.pizza.PizzaInteractor
 import com.kelway.pizzashop.domain.model.Banner
 import com.kelway.pizzashop.domain.model.Category
+import com.kelway.pizzashop.domain.model.CategoryType
 import com.kelway.pizzashop.domain.model.Pizza
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,11 +33,20 @@ class MenuViewModel @Inject constructor(
     private val _bannerOffline = MutableLiveData<List<Banner>>()
     val bannerOffline: LiveData<List<Banner>> get() = _bannerOffline
 
-    init {
-        initData()
+    fun offlineMode() {
+        _category.value = listOf(Category(CategoryType.PIZZA))
+        getCacheBanner()
+        _pizza.value = listOf(
+            Pizza(
+                "Ветчина и грибы",
+                "Ветчина,шампиньоны, увеличинная порция моцареллы, томатный соус",
+                345,
+                R.drawable.ham_and_mushrooms
+            )
+        )
     }
 
-    private fun initData() {
+    fun onlineMode() {
         getBannerData()
         getCategoryData()
         getPizzaData()
@@ -62,7 +73,7 @@ class MenuViewModel @Inject constructor(
         }
     }
 
-    fun getCacheBanner() {
+    private fun getCacheBanner() {
         viewModelScope.launch {
             _bannerOffline.value = bannerInteractor.getAllCacheBanner()
         }

@@ -3,12 +3,15 @@ package com.kelway.pizzashop.presentation.connection_network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.util.Log
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+
 
 class NetworkConnectivityObserver(context: Context): ConnectivityObserver {
     private val connectivityManager =
@@ -34,12 +37,13 @@ class NetworkConnectivityObserver(context: Context): ConnectivityObserver {
 
                 override fun onUnavailable() {
                     super.onUnavailable()
-                    Log.e("Error", "Unavailable2")
                     launch { send(StatusConnection.Unavailable) }
                 }
             }
 
-            connectivityManager.registerDefaultNetworkCallback(callback)
+            val request = NetworkRequest.Builder()
+            request.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            connectivityManager.requestNetwork(request.build(), callback, 5)
             awaitClose {
                 connectivityManager.unregisterNetworkCallback(callback)
             }

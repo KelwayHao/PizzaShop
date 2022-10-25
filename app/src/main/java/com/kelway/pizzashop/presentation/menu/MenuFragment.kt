@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kelway.pizzashop.R
@@ -51,7 +52,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         PizzaShopApplication.appComponent?.inject(this)
         super.onViewCreated(view, savedInstanceState)
-        connectivityObserver = NetworkConnectivityObserver(requireContext().applicationContext)
+        connectivityObserver = NetworkConnectivityObserver(requireContext())
         checkConnectionInternet(connectivityObserver)
         initAdapter()
     }
@@ -76,7 +77,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                     menuViewModel.offlineMode()
                 }
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun initAdapter() {

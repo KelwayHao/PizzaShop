@@ -1,5 +1,6 @@
 package com.kelway.pizzashop.presentation.menu
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,9 +30,6 @@ class MenuViewModel @Inject constructor(
 
     private val _pizza = MutableLiveData<List<Pizza>>()
     val pizza: LiveData<List<Pizza>> get() = _pizza
-
-    private val _bannerOffline = MutableLiveData<List<Banner>>()
-    val bannerOffline: LiveData<List<Banner>> get() = _bannerOffline
 
     fun offlineMode() {
         _category.value = listOf(Category(CategoryType.PIZZA))
@@ -75,7 +73,7 @@ class MenuViewModel @Inject constructor(
 
     private fun getCacheBanner() {
         viewModelScope.launch {
-            _bannerOffline.value = bannerInteractor.getAllCacheBanner()
+            _banner.value = bannerInteractor.getAllCacheBanner()
         }
     }
 }

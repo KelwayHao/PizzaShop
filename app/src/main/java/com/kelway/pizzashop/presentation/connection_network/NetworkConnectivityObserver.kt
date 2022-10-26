@@ -41,9 +41,13 @@ class NetworkConnectivityObserver(context: Context): ConnectivityObserver {
                 }
             }
 
-            val request = NetworkRequest.Builder()
-            request.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            connectivityManager.requestNetwork(request.build(), callback, 5)
+            val networkRequest = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .build()
+
+            connectivityManager.requestNetwork(networkRequest, callback,5)
             awaitClose {
                 connectivityManager.unregisterNetworkCallback(callback)
             }

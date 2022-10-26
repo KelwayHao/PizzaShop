@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStateAtLeast
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kelway.pizzashop.R
 import com.kelway.pizzashop.databinding.FragmentMenuBinding

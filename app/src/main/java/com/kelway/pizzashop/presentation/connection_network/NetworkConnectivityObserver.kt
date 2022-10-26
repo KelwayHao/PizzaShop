@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 
-class NetworkConnectivityObserver(context: Context): ConnectivityObserver {
+class NetworkConnectivityObserver(context: Context) : ConnectivityObserver {
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -47,7 +47,10 @@ class NetworkConnectivityObserver(context: Context): ConnectivityObserver {
                 .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                 .build()
 
-            connectivityManager.requestNetwork(networkRequest, callback,5)
+            connectivityManager.apply {
+                requestNetwork(networkRequest, callback, 5)
+                registerNetworkCallback(networkRequest, callback)
+            }
             awaitClose {
                 connectivityManager.unregisterNetworkCallback(callback)
             }

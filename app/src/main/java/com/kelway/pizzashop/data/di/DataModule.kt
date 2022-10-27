@@ -1,6 +1,8 @@
 package com.kelway.pizzashop.data.di
 
 import com.kelway.pizzashop.data.local_database.banner.BannerDao
+import com.kelway.pizzashop.data.local_database.category.CategoryDao
+import com.kelway.pizzashop.data.local_database.pizza.PizzaDao
 import com.kelway.pizzashop.data.repository.BannerRepositoryImpl
 import com.kelway.pizzashop.data.repository.CategoryRepositoryImpl
 import com.kelway.pizzashop.data.repository.PizzaRepositoryImpl
@@ -19,12 +21,12 @@ class DataModule {
     }
 
     @Provides
-    fun provideCategoryRepository(): CategoryRepository {
-        return CategoryRepositoryImpl()
+    fun provideCategoryRepository(categoryDao: CategoryDao): CategoryRepository {
+        return CategoryRepositoryImpl(categoryDao)
     }
 
     @Provides
-    fun providePizzaRepository(): PizzaRepository {
-        return PizzaRepositoryImpl()
+    fun providePizzaRepository(pizzaDao: PizzaDao): PizzaRepository {
+        return PizzaRepositoryImpl(pizzaDao)
     }
 }

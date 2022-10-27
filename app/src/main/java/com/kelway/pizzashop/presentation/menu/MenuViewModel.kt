@@ -28,14 +28,13 @@ class MenuViewModel @Inject constructor(
     private val _pizza = MutableLiveData<List<Pizza>>()
     val pizza: LiveData<List<Pizza>> get() = _pizza
 
-    private val _bannerOffline = MutableLiveData<List<Banner>>()
-    val bannerOffline: LiveData<List<Banner>> get() = _bannerOffline
-
-    init {
-        initData()
+    fun offlineMode() {
+        getCacheBannerData()
+        getCacheCategoryData()
+        getCachePizzaData()
     }
 
-    private fun initData() {
+    fun onlineMode() {
         getBannerData()
         getCategoryData()
         getPizzaData()
@@ -44,27 +43,46 @@ class MenuViewModel @Inject constructor(
     private fun getBannerData() {
         viewModelScope.launch {
             _banner.value = bannerInteractor.getBanner()
-            bannerInteractor.getBanner().map {
-                bannerInteractor.saveCacheBanner(it)
+            bannerInteractor.getBanner().map { banner ->
+                bannerInteractor.saveCacheBanner(banner)
             }
         }
     }
 
     private fun getCategoryData() {
         viewModelScope.launch {
-            _category.value = categoryInteractor.getCategory()
+            val categoryData = categoryInteractor.getCategory()
+            _category.value = categoryData
+            categoryData.map { category ->
+                categoryInteractor.saveCacheCategory(category)
+            }
         }
     }
 
     private fun getPizzaData() {
         viewModelScope.launch {
             _pizza.value = pizzaInteractor.getPizza()
+            pizzaInteractor.getPizza().map { pizza ->
+                pizzaInteractor.saveCacheCategory(pizza)
+            }
         }
     }
 
-    fun getCacheBanner() {
+    private fun getCacheBannerData() {
         viewModelScope.launch {
-            _bannerOffline.value = bannerInteractor.getAllCacheBanner()
+            _banner.value = bannerInteractor.getAllCacheBanner()
+        }
+    }
+
+    private fun getCacheCategoryData() {
+        viewModelScope.launch {
+            _category.value = categoryInteractor.getAllCacheCategory()
+        }
+    }
+
+    private fun getCachePizzaData() {
+        viewModelScope.launch {
+            _pizza.value = pizzaInteractor.getAllCacheCategory()
         }
     }
 }

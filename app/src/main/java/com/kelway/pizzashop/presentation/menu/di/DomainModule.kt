@@ -1,4 +1,4 @@
-package com.kelway.pizzashop.domain.di
+package com.kelway.pizzashop.presentation.menu.di
 
 import com.kelway.pizzashop.domain.interactor.banner.BannerInteractor
 import com.kelway.pizzashop.domain.interactor.banner.BannerInteractorImpl

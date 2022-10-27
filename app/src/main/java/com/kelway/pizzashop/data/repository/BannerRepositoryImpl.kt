@@ -21,15 +21,17 @@ class BannerRepositoryImpl @Inject constructor(
 
     override suspend fun getCacheBannerData(): List<Banner> {
         return withContext(Dispatchers.IO) {
-            return@withContext bannerDao.getAllBannerDao().map { bannerEntity->
+            return@withContext bannerDao.getAllBannerDao().map { bannerEntity ->
                 bannerEntity.toBanner()
             }
         }
     }
 
     override suspend fun saveCacheBannerData(banner: Banner) {
-        return withContext(Dispatchers.IO) {
-            return@withContext bannerDao.saveBannerDao(banner.toBannerEntity())
+        withContext(Dispatchers.IO) {
+            if (!bannerDao.getAllBannerDao().contains(banner.toBannerEntity())) {
+                bannerDao.saveBannerDao(banner.toBannerEntity())
+            }
         }
     }
 }

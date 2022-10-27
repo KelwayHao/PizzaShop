@@ -9,4 +9,12 @@ class PizzaInteractorImpl @Inject constructor(private val pizzaRepository: Pizza
     override suspend fun getPizza(): List<Pizza> {
         return pizzaRepository.getPizzaDatabase()
     }
+
+    override suspend fun getAllCacheCategory(): List<Pizza> {
+        return pizzaRepository.getCachePizzaData()
+    }
+
+    override suspend fun saveCacheCategory(pizza: Pizza) {
+        pizzaRepository.saveCachePizzaData(pizza)
+    }
 }

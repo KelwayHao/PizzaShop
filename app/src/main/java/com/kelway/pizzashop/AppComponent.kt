@@ -3,7 +3,7 @@ package com.kelway.pizzashop
 import android.content.Context
 import com.kelway.pizzashop.data.di.DataModule
 import com.kelway.pizzashop.data.di.RoomModule
-import com.kelway.pizzashop.domain.di.DomainModule
+import com.kelway.pizzashop.presentation.menu.di.DomainModule
 import com.kelway.pizzashop.presentation.menu.MenuFragment
 import dagger.BindsInstance
 import dagger.Component
